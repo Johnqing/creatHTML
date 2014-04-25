@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<style>
+		[type=text],
+		textarea{
+			width: 400px;;
+			vertical-align: top;
+		}
+		textarea{
+			height: 400px;;
+		}
+	</style>
+</head>
+<body>
+<form action="/" method="get">
+<ul>
+    <li>分类：<select name="index">
+	    <% for(var i=0; i<list.length;i++){ %>
+	    <option value="<%= i %>"><%= list[i].title %></option>
+	    <% } %>
+    </select>
+    </li>
+    <li>二级页面标题：<input type="text" name="subtitle"></li>
+    <li>内容：<textarea name="content"></textarea></li>
+    <li><input type="submit" value="提交"/></li>
+</ul>
+</form>
+</body>
+</html>

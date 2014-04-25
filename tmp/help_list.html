@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+	<meta name="format-detection" content="telephone=no" />
+	<link rel="stylesheet" href="https://pay.360.cn/resource/css/webapp/base.css">
+	<link rel="stylesheet" href="https://pay.360.cn/resource/css/webapp/help.css">
+</head>
+<body>
+<% for (var i=0; i<info.length; i++){  %>
+<div class="title <% if(i==0){ %>first<% } %>">
+	<div class="w95">
+		<div><img src="https://pay.360.cn/resource/img/webapp/wh.png" class="wh"><%= info[i].title  %></div>
+	</div>
+	<div class="qh_arrow2"><em>◆</em><span>◆</span></div>
+</div>
+<div class="text"<% if(i==0){ %> style="display:block"<% } %>>
+	<div class="cont w95">
+		<ul>
+			<% for (var k=0; k<info[i].sList.length; k++){  %>
+			<li class="first"><a href="<%= info[i].sList[k].url %>"><%= info[i].sList[k].subtitle %></a></li>
+			<% }  %>
+		</ul>
+	</div>
+</div>
+<% }  %>
+<script src="https://pay.360.cn/resource/js/lib/zepto.min.js"></script>
+<script>
+
+	//点击展开或者关闭
+	$(document).on('click', '.title', function(){
+		var $this = $(this);
+		if($this.hasClass('tit_active')){
+			$this.next('.text').hide();
+			$this.removeClass('tit_active');
+			return;
+		}
+		$this.addClass('tit_active').siblings('.title').removeClass('tit_active');
+		$this.next('.text').show().siblings('.text').hide();
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+	"name": "creatfile",
+	"version": "0.1.1",
+	"readmeFilename": "README.md",
+	"keywords": [],
+	"main": "./add.js",
+	"dependencies": {
+
+	},
+	"devDependencies": {
+
+	},
+	"author": {
+		"name": "Liu Qing",
+		"email": "csssnow@gmail.com",
+		"url": "http://liuqing.pw/"
+	},
+	"optionalDependencies": {},
+	"license": "BSD"
+}
