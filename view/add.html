@@ -16,15 +16,20 @@
 <body>
 <form action="/" method="get">
 <ul>
-    <li>分类：<select name="index">
-	    <% for(var i=0; i<list.length;i++){ %>
-	    <option value="<%= i %>"><%= list[i].title %></option>
-	    <% } %>
-    </select>
-    </li>
-    <li>二级页面标题：<input type="text" name="subtitle"></li>
-    <li>内容：<textarea name="content"></textarea></li>
-    <li><input type="submit" value="提交"/></li>
+	<% if(!help){ %>
+		<li><input type="text" name="title" placeholder="请添加分类，多个以|隔开"/></li>
+	<% } else { %>
+		<li>
+			<input type="hidden" name="id" value="<%= help.id %>"/>
+			分类：
+			<% for(var i=0; i<help.list.length; i++) { %>
+			<span data-title="<%= help.list[i].id %>"><%= help.list[i].title %></span>
+			<% } %>
+		</li>
+		<li>标题：<input type="text" name="subtitle"></li>
+		<li>内容：<textarea name="content"></textarea></li>
+	<% } %>
+		<li><input type="submit" value="添加"/></li>
 </ul>
 </form>
 </body>

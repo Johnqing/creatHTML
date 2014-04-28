@@ -3,7 +3,7 @@
 	"version": "0.1.1",
 	"readmeFilename": "README.md",
 	"keywords": [],
-	"main": "./add.js",
+	"main": "./index.js",
 	"dependencies": {
 
 	},

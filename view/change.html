@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<style>
+		[type=text],
+		textarea{
+			width: 400px;;
+			vertical-align: top;
+		}
+		textarea{
+			height: 400px;;
+		}
+	</style>
+</head>
+<body>
+
+<% if(help){ %>
+<ul>
+	<% for(var i=0; i<help.length; i++) { %>
+		<li><a href="/?tools=change&id=<%= help[i].id %>"><%= help[i].title %></a></li>
+	<% } %>
+</ul>
+<% } else if(!isSid) { %>
+<form action="/" method="get">
+	<input type="hidden" name="tools" value="change"/>
+	<input type="hidden" name="id" value="<%= id %>"/>
+	<ul>
+		<li>分类：<input type="text" name="title" value="<%= title %>"/></li>
+	<% for(var i=0; i<sList.length; i++) { %>
+		<li><a href="/?tools=change&id=<%= id %>&sid=<%= i %>"><%= sList[i].subtitle %></a></li>
+	<% } %>
+		<li><input type="submit" value="修改分类"/></li>
+	</ul>
+</form>
+<% } else { %>
+<form action="/" method="get">
+	<input type="hidden" name="tools" value="change"/>
+	<input type="hidden" name="id" value="<%= id %>"/>
+	<input type="hidden" name="sid" value="<%= sid %>"/>
+	<ul>
+		<li>分类：<input type="text" name="title" value="<%= title %>"/></li>
+		<li>标题：<input type="text" name="subtitle" value="<%= subtitle %>"></li>
+		<li>内容：<textarea name="content"><%= content %></textarea></li>
+		<li><input type="submit" value="提交"/></li>
+	</ul>
+</form>
+<% } %>
+
+
+
+</body>
+</html>

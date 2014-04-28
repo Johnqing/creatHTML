@@ -1,37 +1,66 @@
-var fs = require('fs');
-var http = require('http');
-var url = require('url');
+/**
+ * 添加模块
+ */
 var path = require('path');
 var NT = require('./lib/nt');
-var until = require('./lib/until');
+var build = require('./lib/build');
 var config = require('./config');
 
-global.basePath = __dirname;
+module.exports = function(reqData, key){
 
-until.buildInfo(config);
+	if(!config[key]) throw new Error('请在 config.js 内添加相应的信息！');
 
-var nn = 0;
+	var allData = global.allData;
+	allData[key] = allData[key] || [];
+	var curData = allData[key];
 
-http.createServer(function(req, res){
+	var tplData = {};
+	if(!curData.length && (!reqData.title && !reqData.id)){
+		console.log('init');
+		curData = [];
+		tplData[key] = null;
+	}else{
+		if(!reqData.subtitle){
+			console.log('not have subtitle');
+			var tArr = reqData.title.split('|');
 
-	if(req.url == '/favicon.ico') return;
+			tArr.forEach(function(item, i){
+				curData.push({
+					total: 0,
+					title: item,
+					id: i,
+					sList: []
+				});
+			});
 
-	var pathname = url.parse(req.url).pathname;
-	var reqbody = until.queryParse(url.parse(req.url).query) || {};
+			tplData[key] = {
+				id: 0,
+				list: curData
+			};
+		}else{
 
-	var key = reqbody.tpl || 'help';
-	var tmp = until.renderHandle(key);
+			console.log('have subtitle');
 
-	if(reqbody.index){
-		until.writeFile(reqbody, key);
+			var data = curData[reqData.id];
+			data.total++;
+			data.sList.push({
+				subtitle: reqData.subtitle,
+				content: reqData.content,
+				url: 'single/'+data.total+'.html'
+			});
+
+			tplData[key] = {
+				id: reqData.id,
+				list: curData
+			};
+
+			build(allData[key], key);
+		}
+
 	}
 
-	res.writeHead(200, {
-		'Content-Type': 'text/html'
-	});
-	res.end(tmp);
-
-
-}).listen(1337, '127.0.0.1');
-
-console.log('running in 127.0.0.1:1337');
+	console.log(allData);
+	// 模板处理
+	var filePath = path.join(global.basePath, './view/add.html');
+	return NT.tpl(filePath, tplData);
+}
