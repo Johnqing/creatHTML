@@ -30,33 +30,38 @@ module.exports = function(reqData, key){
 	var objIsEmpty = isEmpty(reqData);
 
 	if(objIsEmpty){
-		if(!curData.length){
-			console.log('init');
-			tplData[key] = null;
-		}else{
-			tplData[key] = {
-				id: 0,
-				list: curData
-			}
+		tplData[key] = {
+			id: null,
+			list: curData
 		}
 	}else{
-		if(!reqData.subtitle && !curData.length){
-			console.log('not have subtitle');
-			var tArr = reqData.title.split('|');
+		if(!reqData.subtitle){
 
-			tArr.forEach(function(item, i){
-				curData.push({
-					total: 0,
-					title: item,
-					id: i,
-					sList: []
+			if(reqData.id){
+				tplData[key] = {
+					id: reqData.id,
+					list: curData
+				};
+			}else {
+				console.log('not have subtitle');
+				var tArr = reqData.title.split('|');
+
+				tArr.forEach(function(item, i){
+					curData.push({
+						total: 0,
+						title: item,
+						id: i,
+						sList: []
+					});
 				});
-			});
 
-			tplData[key] = {
-				id: 0,
-				list: curData
-			};
+				tplData[key] = {
+					id: 0,
+					list: curData
+				};
+			}
+
+
 		}else{
 
 			console.log('have subtitle');
