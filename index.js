@@ -2,15 +2,38 @@ var fs = require('fs');
 var http = require('http');
 var url = require('url');
 var path = require('path');
-var NT = require('./lib/nt');
 var until = require('./lib/until');
 var change = require('./change');
 var add = require('./add');
+var config = require('./config');
+var build = require('./lib/build');
 
-
-global.allData = JSON.parse(fs.readFileSync('./dist/info.json', 'utf-8'));
+// 防止info.json没有创建
+try{
+	var conf = fs.readFileSync('./dist/info.json', 'utf-8');
+	global.allData = JSON.parse(conf);
+} catch (err){
+	global.allData = {}
+};
+/**
+ * 目录不存在 自动创建目录
+ */
+(function(){
+	for(var k in config){
+		var p = path.join(__dirname, './dist/'+ k +'/single');
+		until.mkdirSync(p);
+	}
+})();
 
 global.basePath = __dirname;
+
+// build 所有
+//(function(){
+//	for(var k in global.allData){
+//		build(global.allData[k], k);
+//	};
+//})();
+
 
 http.createServer(function(req, res){
 
