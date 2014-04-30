@@ -7,6 +7,7 @@ var change = require('./change');
 var add = require('./add');
 var config = require('./config');
 var build = require('./lib/build');
+var logs = require('./lib/log');
 
 // 防止info.json没有创建
 try{
@@ -28,21 +29,22 @@ try{
 global.basePath = __dirname;
 
 // build 所有
-//(function(){
-//	for(var k in global.allData){
-//		build(global.allData[k], k);
-//	};
-//})();
+(function(){
+	for(var k in global.allData){
+		build(global.allData[k], k);
+	};
+})();
 
 
 http.createServer(function(req, res){
-
 	if(req.url == '/favicon.ico') return;
-	var pathname = url.parse(req.url).pathname;
+
 	var reqbody = until.queryParse(url.parse(req.url).query) || {};
 
 	var key = reqbody.tpl || 'help';
 	var template = '';
+
+	logs.out(reqbody.tools);
 	// 判断类型 默认为添加
 	switch (reqbody.tools){
 		case 'change':
@@ -61,4 +63,4 @@ http.createServer(function(req, res){
 
 }).listen(1337, '127.0.0.1');
 
-console.log('running in 127.0.0.1:1337');
+logs.out('127.0.0.1:1337 running！');

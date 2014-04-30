@@ -5,7 +5,7 @@ var path = require('path');
 var NT = require('./lib/nt');
 var build = require('./lib/build');
 var config = require('./config');
-
+var logs = require('./lib/log');
 /*
   * 检测对象是否是空对象(不包含任何可读属性)。
   * 方法既检测对象本身的属性，也检测从原型继承的属性(因此没有使hasOwnProperty)。
@@ -19,7 +19,10 @@ function isEmpty(obj){
 
 module.exports = function(reqData, key){
 
-	if(!config[key]) throw new Error('请在 config.js 内添加相应的信息！');
+	if(!config[key]) {
+		logs.error('请在 config.js 内添加相应的信息！');
+		return;
+	}
 
 	var allData = global.allData;
 	allData[key] = allData[key] || [];
@@ -64,7 +67,7 @@ module.exports = function(reqData, key){
 
 		}else{
 
-			console.log('have subtitle');
+			logs.out('have subtitle');
 
 			var data = curData[reqData.id];
 			data.total++;
@@ -84,7 +87,7 @@ module.exports = function(reqData, key){
 
 	}
 
-	console.log(allData);
+	logs.out('add data is done!');
 	// 模板处理
 	var filePath = path.join(global.basePath, './view/add.html');
 	return NT.tpl(filePath, tplData);

@@ -8,7 +8,7 @@
 
 	},
 	"devDependencies": {
-
+		"colors": "*"
 	},
 	"author": {
 		"name": "Liu Qing",

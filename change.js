@@ -4,6 +4,7 @@
 var path = require('path');
 var NT = require('./lib/nt');
 var build = require('./lib/build');
+var logs = require('./lib/log');
 
 function clearTempData(data){
 	delete data.isSid;
@@ -50,12 +51,8 @@ module.exports = function(reqData, key){
 	} else {
 		data.title = isIndex && aData[key][index].title;
 	}
-
-
-	console.log(reqData, data);
-
-
+	logs.out('change data is done!');
 	// 模板处理
 	var filePath = path.join(global.basePath, './view/change.html');
-	return NT.tpl(filePath, data);;
+	return NT.tpl(filePath, data);
 }
