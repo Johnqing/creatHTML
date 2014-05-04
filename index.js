@@ -21,6 +21,7 @@ try{
  */
 (function(){
 	for(var k in config){
+		if(k == 'root' || k == 'single') continue;
 		var p = path.join(__dirname, './'+config.root+'/'+ k +'/'+config.single);
 		until.mkdirSync(p);
 	}
