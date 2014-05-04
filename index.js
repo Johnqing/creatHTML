@@ -11,7 +11,7 @@ var logs = require('./lib/log');
 
 // 防止info.json没有创建
 try{
-	var conf = fs.readFileSync('./dist/info.json', 'utf-8');
+	var conf = fs.readFileSync('./'+config.root+'/info.json', 'utf-8');
 	global.allData = JSON.parse(conf);
 } catch (err){
 	global.allData = {}
@@ -21,7 +21,7 @@ try{
  */
 (function(){
 	for(var k in config){
-		var p = path.join(__dirname, './dist/'+ k +'/single');
+		var p = path.join(__dirname, './'+config.root+'/'+ k +'/'+config.single);
 		until.mkdirSync(p);
 	}
 })();
