@@ -58,6 +58,7 @@ http.createServer(function(req, res){
 	res.writeHead(200, {
 		'Content-Type': 'text/html'
 	});
+	template = template.replace(/(<\w+)(\+)(.*\/\w>)/g, '$1 $3');
 	res.end(template);
 
 
