@@ -22,7 +22,7 @@ module.exports = {
 
 `single` : 文件生成后，单页存放目录(这个目录会在xxx1内，每一个xxx1都会有一个)
 
-`xxx2` : 当然这个栏目的描述
+`xxx2` : 当前这个栏目的描述
 
 + 在根本目下， `npm install`
 
