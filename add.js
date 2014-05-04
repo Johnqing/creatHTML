@@ -74,7 +74,7 @@ module.exports = function(reqData, key){
 			data.sList.push({
 				subtitle: reqData.subtitle,
 				content: reqData.content,
-				url: 'single/'+data.total+'.html'
+				url: 'single/'+data.id+'/'+data.total+'.html'
 			});
 
 			tplData[key] = {
